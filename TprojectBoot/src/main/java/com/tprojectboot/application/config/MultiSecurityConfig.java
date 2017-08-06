@@ -26,27 +26,26 @@ public class MultiSecurityConfig {
 		//Global -> 모든 곳의 Config에 적용//
         auth.userDetailsService(loginservice).passwordEncoder(shapasswordencoder);
     }
-	
+
 	@Configuration
-	@Order(Ordered.HIGHEST_PRECEDENCE)
-    public static class BasicLoginAdapter extends WebSecurityConfigurerAdapter {
-        protected void configure(HttpSecurity http) throws Exception {
-        	http
-		    	.csrf()
-		    	.disable()
-		    	.authorizeRequests()
-		     	.antMatchers("/admin/mainbasic")
-		     	.hasRole("ADMIN")
-		     	.and()
-		     	.httpBasic();
-        }
-    }
-	
-	@Configuration
-    public static class FormLoginAdapter extends WebSecurityConfigurerAdapter {
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-        	http
+	@Order(1)                                                        
+	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+		protected void configure(HttpSecurity http) throws Exception {
+			http
+				.antMatcher("/admin/mainbasic") 
+				.authorizeRequests()
+				.anyRequest().hasRole("ADMIN")
+				.and()
+				.httpBasic();
+		}
+	}
+
+	@Configuration                                                   
+	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+			http
 	        	.csrf()
 	         	.disable()
 	         	.authorizeRequests()
@@ -61,11 +60,16 @@ public class MultiSecurityConfig {
 	         	.failureUrl("/loginerror.do")
 	         	.defaultSuccessUrl("/admin/main")
 	         	.permitAll();
-        }
+		}
 	}
 
 	@Bean
 	public ShaPasswordEncoder shapasswordencode(){
 		return new ShaPasswordEncoder();
+	}
+	
+	@Bean
+	public LoginServiceImpl loginservice(){
+		return new LoginServiceImpl();
 	}
 }

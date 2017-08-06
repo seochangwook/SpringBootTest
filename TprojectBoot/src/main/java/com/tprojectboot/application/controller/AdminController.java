@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class AdminController {
-	@RequestMapping(value = {"/admin/main"}, method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/main", method = RequestMethod.GET)
     public ModelAndView adminmain(ModelAndView mv){
 		System.out.println("admin main page");
 		
@@ -25,11 +25,11 @@ public class AdminController {
 		return mv;
     }
 	
-	@RequestMapping(value = {"/admin/mainbasic"}, method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/mainbasic", method = RequestMethod.GET)
     public ModelAndView adminmainbasic(ModelAndView mv){
-		System.out.println("admin main page");
+		System.out.println("admin mainbasic page");
 		
-		mv.setViewName("admin/main");
+		mv.setViewName("admin/mainbasic");
 		
 		//세션 등록//
 		//사용자 정보 출력(세션)//
