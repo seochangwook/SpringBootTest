@@ -10,6 +10,6 @@ public class TprojectBootApplication {
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(TprojectBootApplication.class, args);
 		
-		System.out.println("start project");
+		System.out.println("start spring boot project");
 	}
 }
