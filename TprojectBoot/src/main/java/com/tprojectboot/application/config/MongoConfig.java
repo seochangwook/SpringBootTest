@@ -40,6 +40,7 @@ public class MongoConfig {
 				.build();
 		
 		MongodExecutable mongodExecutable = null;
+		
 		try {
 			mongodExecutable = starter.prepare(mongodConfig);
 			MongodProcess mongod = mongodExecutable.start();
@@ -51,10 +52,15 @@ public class MongoConfig {
 			DBCollection col = db.createCollection("memberdb", new BasicDBObject()); //컬렉션을 생성//
 			
 			//mongodb data setting
-			for(int i=0; i<3; i++){
-				col.save(new BasicDBObject("username", "admin"+(i+1)).append("password", "admin"+(i+1)).append("role", "ROLE_ADMIN"));
+			for(int i=0; i<4; i++){
+				if(i == 3){
+					col.save(new BasicDBObject("username", "admin"+(i+1)).append("password", "admin"+(i+1)).append("role", "ROLE_USER"));
+				}
+				
+				else{
+					col.save(new BasicDBObject("username", "admin"+(i+1)).append("password", "admin"+(i+1)).append("role", "ROLE_ADMIN"));
+				}
 			}
-			
 		} finally {
 			if (mongodExecutable != null){
 

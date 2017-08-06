@@ -37,6 +37,16 @@ public class AuthController {
 		return mv;
 	}
 	
+	//권한관련 에러처리 페이지//
+	@RequestMapping(value = "/autherror.do", method = RequestMethod.GET)
+		public ModelAndView authaccesserror(ModelAndView mv) {
+		mv.setViewName("error/autherrorview");
+				
+		System.out.println("login access auth error");
+				
+		return mv;
+	}
+	
 	@RequestMapping(value = "/adminlogoutajax", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> logout(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> resultmap = new HashMap<String, Object>();

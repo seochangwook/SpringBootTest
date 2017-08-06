@@ -36,6 +36,8 @@ public class MultiSecurityConfig {
 				.authorizeRequests()
 				.anyRequest().hasRole("ADMIN")
 				.and()
+				.exceptionHandling().accessDeniedPage("/autherror.do")
+				.and()
 				.httpBasic();
 		}
 	}
@@ -51,6 +53,8 @@ public class MultiSecurityConfig {
 	         	.authorizeRequests()
 	         	.antMatchers("/admin/main")
 	         	.hasRole("ADMIN")
+	         	.and()
+	         	.exceptionHandling().accessDeniedPage("/autherror.do")
 	         	.and()
 	         	.formLogin()
 	         	.usernameParameter("j_username")
