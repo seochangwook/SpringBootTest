@@ -8,7 +8,7 @@
 <title>Login</title>
 </head>
 <body>
-	<h1>Custom UI Spring Security Test (for MongoDB)</h1>
+	<h1>Custom UI Spring Security Test (for Embedded MongoDB)</h1>
 	<div>
 		<c:url value="/j_spring_security_check" var="loginUrl" />
 		<form action="${loginUrl}" method="POST">

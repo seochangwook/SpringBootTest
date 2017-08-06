@@ -24,6 +24,8 @@ public class MemberAuthDAOImpl implements MemberAuthDAO{
 				Criteria.where("username").is(username)
 		));
 		
+		System.out.println("--> memberdb dao call success...");
+		
 		return mongoTemplate.find(query, MemberAuthVO.class, collectionname);
 	}
 
