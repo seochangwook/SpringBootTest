@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 //com.tprojectboot.application 이것의 하위 컴포넌트를 스캔하기에 경로를 요기까지 default로 설정해준다.//
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,4 +43,11 @@ public class HomeController {
 		
 		return mv;
     }
+	
+	@RequestMapping(value = "/chatting.do", method = RequestMethod.GET)
+	public ModelAndView chat(ModelAndView mv) {
+		mv.setViewName("chat/chattingview");
+		
+		return mv;
+	}
 }

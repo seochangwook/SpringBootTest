@@ -48,6 +48,13 @@
 <form name='TransTest' id='tForm' method='get' action='http://localhost:8080/admin/mainbasic'>
 <p><button name='subject' type='submit'>관리자 페이지 이동(basic)</button></p>
 </form>
+<br>
+<div>
+<label>* 채팅방 이동</label><br>
+<form name='TransTest' id='tForm' method='get' action='http://localhost:8080/chatting.do'>
+<p><button name='subject' type='submit'>채팅방 입장</button></p>
+</form>
+</div>
 </body>
 <script type="text/javascript">
 $(function(){
