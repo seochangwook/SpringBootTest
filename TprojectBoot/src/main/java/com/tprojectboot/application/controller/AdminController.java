@@ -40,4 +40,18 @@ public class AdminController {
 		
 		return mv;
     }
+	
+	@RequestMapping(value = "/chatting.do", method = RequestMethod.GET)
+	public ModelAndView chat(ModelAndView mv) {
+		mv.setViewName("chat/chattingview");
+		
+		//세션 등록//
+		//사용자 정보 출력(세션)//
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("user name :" + user.getUsername());
+		
+		mv.addObject("userid", user.getUsername());
+		
+		return mv;
+	}
 }

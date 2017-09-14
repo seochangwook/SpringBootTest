@@ -26,15 +26,17 @@
 	<h1>Chatting Page</h1>
 	<div>
 		<input type="button" id="chattinglistbtn" value="채팅 참여자 리스트">
+		<input type="button" id="outroom" value="채팅방 나가기">
 	</div>
 	<br>
 	<div>
-		<textarea id="chatOutput" name="" class="chatting_history" rows="24"></textarea>
+		<textarea id="chatOutput" name="" class="chatting_history" rows="30" cols="70"></textarea>
 		<div class="chatting_input">
 			<input id="chatInput" type="text" class="chat">&nbsp
 			<input type="button" id="sendbtn" value="전송">
 		</div>
 	</div>
+	<input type="hidden" value='${userid}' id="sessionuserid">
 </body>
 <script type="text/javascript">
 $(function(){
@@ -66,6 +68,8 @@ var WebSocket = (function(){
 	var textArea = document.getElementById("chatOutput");
 	var inputElm = document.getElementById("chatInput");
 	var sendbtn = document.getElementById("sendbtn");
+	var outroombtn = document.getElementById("outroom");
+	var usersessionid = document.getElementById("sessionuserid");
 	
 	//연결//
 	function connect(){
@@ -74,11 +78,30 @@ var WebSocket = (function(){
 		stompClient = Stomp.over(socket);
 		
 		stompClient.connect({}, function(){
-			//메세지를 받는다.//
+			//메세지를 받는다. 각각의 구독//
 			stompClient.subscribe('/topic/roomId', function(msg){
 				printMessage(JSON.parse(msg.body).sendMessage + '/' + JSON.parse(msg.body).senderName);
 			});
+			
+			stompClient.subscribe('/topic/out', function(msg){
+				printMessage(msg.body);
+			});
+			
+			stompClient.subscribe('/topic/in', function(msg){
+				printMessage(msg.body);
+			});
+			
+			//입장글//
+			stompClient.send("/app/in", {}, usersessionid.value + ' is in chatroom');
 		});
+	}
+	
+	//연결해제//
+	function disconnect() {
+    	if (stompClient !== null) {
+    		stompClient.send("/app/out", {}, usersessionid.value + ' is out chatroom');
+    		stompClient.disconnect();
+    	}
 	}
 	
 	//메세지 전송 버튼 이벤트//
@@ -87,10 +110,16 @@ var WebSocket = (function(){
 		clear(inputElm);
 	}
 	
+	//채팅방 나가기 버튼 이벤트//
+	outroombtn.onclick = function(){
+		disconnect();
+	}
+	
 	function printMessage(message){
 		textArea.value += message + "\n";
 	}
 	
+	//입력창 초기화//
 	function clear(input){
 		input.value = "";	
 	}
@@ -99,7 +128,7 @@ var WebSocket = (function(){
 	function sendMessage(text){
 		//send()부분에 매개변수로 MessageMapping을 입력//
 		//세번째 인자로 보내고자 하는 정보를 JSON으로 설정하여 보낸다.(관련 VO존재 필요)//
-		stompClient.send("/app/hello", {}, JSON.stringify({'sendMessage':text, 'senderName':'seo'}));
+		stompClient.send("/app/hello", {}, JSON.stringify({'sendMessage':text, 'senderName':''+usersessionid.value}));
 	}
 	
 	//초기화//

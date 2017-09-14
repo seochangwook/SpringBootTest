@@ -43,11 +43,4 @@ public class HomeController {
 		
 		return mv;
     }
-	
-	@RequestMapping(value = "/chatting.do", method = RequestMethod.GET)
-	public ModelAndView chat(ModelAndView mv) {
-		mv.setViewName("chat/chattingview");
-		
-		return mv;
-	}
 }

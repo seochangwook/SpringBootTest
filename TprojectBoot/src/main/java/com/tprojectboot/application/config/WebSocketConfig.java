@@ -12,7 +12,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
 	
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry config) {
-		config.enableSimpleBroker("/topic/"); //메모리 기반 메세지 브로커가 해당 api 구독하고 있는 ㅡㄹ라이언트에게 메세지 전달//
+		config.enableSimpleBroker("/topic/"); //메모리 기반 메세지 브로커가 해당 api 구독하고 있는 클라이언트에게 메세지 전달//
 		config.setApplicationDestinationPrefixes("/app"); //서버에서 클라이언트로부터의 메세지를 받을 api의 prefix//
 	}
 	
