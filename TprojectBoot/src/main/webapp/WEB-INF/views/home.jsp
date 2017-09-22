@@ -39,7 +39,7 @@
 </div>
 <br><br>
 <label>* Spring Security Test(Form, Basic)</label><br>
-<form name='TransTest' id='tForm' method='get' action='http://172.30.1.6:8080/admin/main'>
+<form name='TransTest' id='tForm' method='get' action='http://localhost:8080/admin/main'>
 <p><button name='subject' type='submit'>관리자 페이지 이동(form)</button></p>
 </form>
 <form name='TransTest' id='tForm' method='get' action='http://localhost:8080/admin/user'>
@@ -48,6 +48,19 @@
 <form name='TransTest' id='tForm' method='get' action='http://localhost:8080/admin/mainbasic'>
 <p><button name='subject' type='submit'>관리자 페이지 이동(basic)</button></p>
 </form>
+<<br>
+	<div>
+		<label>* Spring JPA, Hibernate Test</label><br>
+		<input type='button' value='load all user' id='btntest5'>
+		<br>
+		<input type="text" placeholder="input search id" id="searchid">&nbsp
+		<input type="button" value="search email" id="searchidbtn">&nbsp
+		<input type="button" value="delete user" id="deleteuserid">&nbsp
+		<br><br>
+		<input type="text" placeholder="input search email" id="searchemail">&nbsp
+		<input type="text" placeholder="input search id" id="searcheid">&nbsp
+		<input type="button" value="search phonenumber" id="searchemailbtn">&nbsp
+	</div>
 </body>
 <script type="text/javascript">
 $(function(){
@@ -233,6 +246,198 @@ $(function(){
 		            
 		            $('#memberlistdiv').append(printStr); //다시 테이블을 보여주기 위해서 HTML코드 적용//
 				}
+			},
+			error: function(retVal, status, er){
+				alert("error: "+retVal+" status: "+status+" er:"+er);
+			}
+		});
+	});
+	$('#btntest5').click(function(){
+		var trans_objeect = 
+		{
+	    	'':''
+	    }
+		var trans_json = JSON.stringify(trans_objeect); //json으로 반환//
+		
+		$.ajax({
+			url: '<c:url value="/jpatest.do"/>',
+			type: 'POST',
+			dataType: 'json',
+			data:trans_json,
+			contentType: 'application/json',
+			mimeType: 'application/json',
+			success: function(retVal){
+				var infodialog = new $.Zebra_Dialog('<strong>Message:</strong><br><br><p>ajax call success</p>',{
+					title: 'jqGrid Test',
+					type: 'confirmation',
+					print: false,
+					width: 760,
+					position: ['right - 20', 'top + 20'],
+					buttons: ['닫기'],
+					onClose: function(caption){
+						if(caption == '닫기'){
+							//alert('yes click');
+						}
+					}
+				});
+			},
+			error: function(retVal, status, er){
+				alert("error: "+retVal+" status: "+status+" er:"+er);
+			}
+		});
+	});
+	$('#searchidbtn').click(function(){
+		var search_id = $('#searchid').val();
+		
+		var trans_objeect = 
+		{
+	    	'userid':search_id
+	    }
+		var trans_json = JSON.stringify(trans_objeect); //json으로 반환//
+		
+		$.ajax({
+			url: '<c:url value="/jpatestsearch.do"/>',
+			type: 'POST',
+			dataType: 'json',
+			data: trans_json,
+			contentType: 'application/json',
+			mimeType: 'application/json',
+			success: function(retVal){
+				if(retVal.result == 'success'){
+					var infodialog = new $.Zebra_Dialog('<strong>Message:</strong><br><br><p>검색성공</p>',{
+						title: 'jqGrid Test',
+						type: 'confirmation',
+						print: false,
+						width: 760,
+						position: ['right - 20', 'top + 20'],
+						buttons: ['닫기'],
+						onClose: function(caption){
+							if(caption == '닫기'){
+								//alert('yes click');
+							}
+						}
+					});
+				} else if(retVal.result == 'fail'){
+					var infodialog = new $.Zebra_Dialog('<strong>Message:</strong><br><br><p>존재하지 않는 유저입니다.</p>',{
+						title: 'jqGrid Test',
+						type: 'warning',
+						print: false,
+						width: 760,
+						position: ['right - 20', 'top + 20'],
+						buttons: ['닫기'],
+						onClose: function(caption){
+							if(caption == '닫기'){
+								//alert('yes click');
+							}
+						}
+					});
+				}	
+			},
+			error: function(retVal, status, er){
+				alert("error: "+retVal+" status: "+status+" er:"+er);
+			}
+		});
+	});
+	$('#searchemailbtn').click(function(){
+		var search_email = $('#searchemail').val();
+		var search_id = $('#searcheid').val();
+		
+		var trans_objeect = 
+		{
+	    	'useremail':search_email,
+	    	'userid': search_id
+	    }
+		var trans_json = JSON.stringify(trans_objeect); //json으로 반환//
+		
+		$.ajax({
+			url: '<c:url value="/jpatestsearchemail.do"/>',
+			type: 'POST',
+			dataType: 'json',
+			data: trans_json,
+			contentType: 'application/json',
+			mimeType: 'application/json',
+			success: function(retVal){
+				if(retVal.result == 'success'){
+					var infodialog = new $.Zebra_Dialog('<strong>Message:</strong><br><br><p>검색성공</p>',{
+						title: 'jqGrid Test',
+						type: 'confirmation',
+						print: false,
+						width: 760,
+						position: ['right - 20', 'top + 20'],
+						buttons: ['닫기'],
+						onClose: function(caption){
+							if(caption == '닫기'){
+								//alert('yes click');
+							}
+						}
+					});
+				} else if(retVal.result == 'fail'){
+					var infodialog = new $.Zebra_Dialog('<strong>Message:</strong><br><br><p>존재하지 않는 유저입니다.</p>',{
+						title: 'jqGrid Test',
+						type: 'warning',
+						print: false,
+						width: 760,
+						position: ['right - 20', 'top + 20'],
+						buttons: ['닫기'],
+						onClose: function(caption){
+							if(caption == '닫기'){
+								//alert('yes click');
+							}
+						}
+					});
+				}	
+			},
+			error: function(retVal, status, er){
+				alert("error: "+retVal+" status: "+status+" er:"+er);
+			}
+		});
+	});
+	$('#deleteuserid').click(function(){
+		var search_id = $('#searchid').val();
+		
+		var trans_objeect = 
+		{
+	    	'userid': search_id
+	    }
+		var trans_json = JSON.stringify(trans_objeect); //json으로 반환//
+		
+		$.ajax({
+			url: '<c:url value="/jpatestdeleteuser.do"/>',
+			type: 'POST',
+			dataType: 'json',
+			data: trans_json,
+			contentType: 'application/json',
+			mimeType: 'application/json',
+			success: function(retVal){
+				if(retVal.result == 'success'){
+					var infodialog = new $.Zebra_Dialog('<strong>Message:</strong><br><br><p>제거성공</p>',{
+						title: 'jqGrid Test',
+						type: 'confirmation',
+						print: false,
+						width: 760,
+						position: ['right - 20', 'top + 20'],
+						buttons: ['닫기'],
+						onClose: function(caption){
+							if(caption == '닫기'){
+								//alert('yes click');
+							}
+						}
+					});
+				} else if(retVal.result == 'fail'){
+					var infodialog = new $.Zebra_Dialog('<strong>Message:</strong><br><br><p>존재하지 않는 유저입니다.</p>',{
+						title: 'jqGrid Test',
+						type: 'warning',
+						print: false,
+						width: 760,
+						position: ['right - 20', 'top + 20'],
+						buttons: ['닫기'],
+						onClose: function(caption){
+							if(caption == '닫기'){
+								//alert('yes click');
+							}
+						}
+					});
+				}	
 			},
 			error: function(retVal, status, er){
 				alert("error: "+retVal+" status: "+status+" er:"+er);

@@ -23,7 +23,7 @@
 <br><br>
 <div>
 <label>* 채팅방 이동</label><br>
-<form name='TransTest' id='tForm' method='get' action='http://172.30.1.6:8080/chatting.do'>
+<form name='TransTest' id='tForm' method='get' action='http://localhost:8080/chatting.do'>
 <p><button name='subject' type='submit'>채팅방 입장</button></p>
 </form>
 </div>
