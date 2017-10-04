@@ -27,9 +27,9 @@ public interface UserInfoDao extends CrudRepository<UserInfo, String>{
 	List<UserInfo> findByUserEmail(@Param("user_id") String user_id);
 	
 	@Query(nativeQuery = true, value=
-			"select c.user_id from userinfo c where c.user_email = :user_email AND c.user_id = :user_id"
+			"select c.user_id from userinfo c where c.user_address = :user_address AND c.user_id = :user_id"
 	)
-	List<UserInfo> findByUserPhoneNumber(@Param("user_email") String user_email, @Param("user_id") String user_id);
+	List<UserInfo> findByUserPhoneNumber(@Param("user_address") String user_address, @Param("user_id") String user_id);
 	
 	@Transactional
 	@Modifying

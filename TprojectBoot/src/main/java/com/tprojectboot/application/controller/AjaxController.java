@@ -75,7 +75,7 @@ public class AjaxController {
 		List<UserInfo> userlist = homeservice.getUserInfo();
 
 		for(int i=0; i<userlist.size(); i++){
-			System.out.println("email: " + userlist.get(i).getUser_email());
+			System.out.println("address: " + userlist.get(i).getUser_address());
 		}
 			
 		Map<String, Object> retVal = new HashMap<String, Object>(); //諛섑솚�븷 ���엯�쓽 �겢�옒�뒪瑜� �꽑�뼵//
@@ -96,7 +96,7 @@ public class AjaxController {
 			if(usersearch.size() == 0){
 				retVal.put("result", "fail");
 			} else{
-				System.out.println("email: " + usersearch.get(0).getUser_email());
+				System.out.println("address: " + usersearch.get(0).getUser_address());
 				
 				retVal.put("result", "success");
 			}
