@@ -2,7 +2,9 @@ package com.tprojectboot.application.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
@@ -26,32 +28,34 @@ public class LoginServiceImpl implements UserDetailsService{
 
 	@SuppressWarnings("unused")
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		String usercheck = "true";
+	public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
 		System.out.println("***************<Security Check>***************");
 		System.out.println("Auth Checking...");
 		
 		UserDetails user = null;
 		
 		//데이터베이스에서 데이터가 있는지 검증//
-		List<MemberAuthVO> userinfo = memberinfodao.getMemberInfo(username);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("searchId", userid);
+		
+		List<Map<String, Object>> userinfo = memberinfodao.getMemberInfo(params);
 		
 		//null이면 해당 유저정보가 없다는 의미//
 		if(userinfo == null){
 			System.out.println("**********************************************");
 			
-			throw new UsernameNotFoundException("No user found with username" + username);
+			throw new UsernameNotFoundException("No user found with userid" + userid);
 		}
 		
 		else if(userinfo != null){
-			System.out.println("member info: " + userinfo.get(0).getUsername() + "/" + userinfo.get(0).getPassword() + "/" + userinfo.get(0).getRole());
-			System.out.println("password encode: " + passwordEncoder.encodePassword(userinfo.get(0).getPassword(), null));
+			System.out.println("member info: " + userinfo.get(0).get("USER_ID") + "/" + userinfo.get(0).get("USER_PSWD") + "/" + userinfo.get(0).get("ROLE"));
+			System.out.println("password encode: " + passwordEncoder.encodePassword(userinfo.get(0).get("USER_PSWD").toString(), null));
 			
 			Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 
-		    roles.add(new SimpleGrantedAuthority(userinfo.get(0).getRole()));
+		    roles.add(new SimpleGrantedAuthority(userinfo.get(0).get("ROLE").toString()));
 		    
-		    user = new User(userinfo.get(0).getUsername(), passwordEncoder.encodePassword(userinfo.get(0).getPassword(), null), roles);
+		    user = new User(userinfo.get(0).get("USER_ID").toString(), passwordEncoder.encodePassword(userinfo.get(0).get("USER_PSWD").toString() , null), roles);
 
 			System.out.println("Auth Checking Success...");
 			

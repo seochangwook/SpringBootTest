@@ -5,4 +5,12 @@
 		SELECT t.userName, t.userAge, t.userAddress, t.userImage 
 		FROM testuser t
 	</select>
+	<select id="searchuser" parameterType="map" resultType="map">
+		SELECT  USER_ID, USER_PSWD, ROLE
+		FROM    USERINFO
+		WHERE 	1=1
+		<if test="searchName != ''">
+			AND USER_ID = #{searchId}
+		</if>
+	</select>
 </mapper>

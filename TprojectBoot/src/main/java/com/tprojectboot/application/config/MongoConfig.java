@@ -22,7 +22,7 @@ import de.flapdoodle.embed.process.runtime.Network;
 
 @Configuration
 public class MongoConfig {
-	@Bean
+	/*@Bean
 	public MongoTemplate mongoTemplate() throws IOException {
 		MongoTemplate mongoTemplate = null;
 		
@@ -74,5 +74,5 @@ public class MongoConfig {
 		System.out.println("************************************");
 		
 		return mongoTemplate;
-	}
+	}*/
 }
