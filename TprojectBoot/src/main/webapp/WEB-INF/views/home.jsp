@@ -39,7 +39,7 @@
 </div>
 <br><br>
 <label>* Spring Security Test(Form, Basic)</label><br>
-<form name='TransTest' id='tForm' method='get' action='http://localhost:8080/admin/main'>
+<form name='TransTest' id='tForm' method='get' action="${serveraddress}">
 <p><button name='subject' type='submit'>관리자 페이지 이동(form)</button></p>
 </form>
 <form name='TransTest' id='tForm' method='get' action='http://localhost:8080/admin/user'>
@@ -54,10 +54,10 @@
 		<input type='button' value='load all user' id='btntest5'>
 		<br>
 		<input type="text" placeholder="input search id" id="searchid">&nbsp
-		<input type="button" value="search email" id="searchidbtn">&nbsp
+		<input type="button" value="search address" id="searchidbtn">&nbsp
 		<input type="button" value="delete user" id="deleteuserid">&nbsp
 		<br><br>
-		<input type="text" placeholder="input search email" id="searchemail">&nbsp
+		<input type="text" placeholder="input search address" id="searchemail">&nbsp
 		<input type="text" placeholder="input search id" id="searcheid">&nbsp
 		<input type="button" value="search phonenumber" id="searchemailbtn">&nbsp
 	</div>

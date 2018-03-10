@@ -14,10 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.tprojectboot.application.dao.MemberAuthDAOImpl;
-import com.tprojectboot.application.vo.MemberAuthVO;
 
 @Service("memberauthservice")
 public class LoginServiceImpl implements UserDetailsService{

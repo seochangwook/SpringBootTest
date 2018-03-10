@@ -34,6 +34,50 @@ public class UserInfo{
 	
 	@Column(name="mailpush_use")
 	private int mailpush_use;
+	
+	@Column(name="user_no")
+	private int user_no;
+	
+	@Column(name="user_age")
+	private int user_age;
+	
+	@Column(name="user_image")
+	private String user_image;
+	
+	@Column(name="role")
+	private String role;
+
+	public int getUser_no() {
+		return user_no;
+	}
+
+	public void setUser_no(int user_no) {
+		this.user_no = user_no;
+	}
+
+	public int getUser_age() {
+		return user_age;
+	}
+
+	public void setUser_age(int user_age) {
+		this.user_age = user_age;
+	}
+
+	public String getUser_image() {
+		return user_image;
+	}
+
+	public void setUser_image(String user_image) {
+		this.user_image = user_image;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public String getUser_id() {
 		return user_id;

@@ -2,6 +2,7 @@ package com.tprojectboot.application.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -15,22 +16,30 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 //@RestController = @Controller + @ResponseBody
 public class HomeController {
+	@Value("${server.address}")
+	private String serverIP;
+	
+	@Value("${server.port}")
+	private String serverPORT;
+	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
     public ModelAndView home(ModelAndView mv, HttpServletRequest request, HttpServletResponse response){
 		System.out.println("normal home page");
 		
-		mv.setViewName("home");
-		
 		//로그아웃//
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
+				
 		System.out.println("auth info: " + auth);
-		
+				
 		if(auth != null){
-			 new SecurityContextLogoutHandler().logout(request, response, auth);
-			 
-			 System.out.println("logout success...");
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+					 
+			System.out.println("logout success...");
 		}
+				
+		mv.addObject("serveraddress", "http://"+serverIP+":"+serverPORT+"/admin/main");
+		
+		mv.setViewName("home");
 		
 		return mv;
     }

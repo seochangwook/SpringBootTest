@@ -37,6 +37,7 @@
 		</div>
 	</div>
 	<input type="hidden" value='${userid}' id="sessionuserid">
+	<input type="hidden" value='${chatoutaddress}' id="chatoutaddress">
 </body>
 <script type="text/javascript">
 $(function(){
@@ -70,6 +71,7 @@ var WebSocket = (function(){
 	var sendbtn = document.getElementById("sendbtn");
 	var outroombtn = document.getElementById("outroom");
 	var usersessionid = document.getElementById("sessionuserid");
+	var chatoutaddress = document.getElementById("chatoutaddress");
 	
 	//연결//
 	function connect(){
@@ -98,10 +100,12 @@ var WebSocket = (function(){
 	
 	//연결해제//
 	function disconnect() {
-    	if (stompClient !== null) {
-    		stompClient.send("/app/out", {}, usersessionid.value + ' is out chatroom');
-    		stompClient.disconnect();
-    	}
+	    	if (stompClient !== null) {
+	    		stompClient.send("/app/out", {}, usersessionid.value + ' is out chatroom');
+	    		stompClient.disconnect();
+	    		
+	    		window.location.href=chatoutaddress.value;
+	    	}
 	}
 	
 	//메세지 전송 버튼 이벤트//
