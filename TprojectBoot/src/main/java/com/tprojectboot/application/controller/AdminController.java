@@ -58,6 +58,8 @@ public class AdminController {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("user name :" + user.getUsername());
 		
+		
+		
 		mv.addObject("chatoutaddress", "http://"+serverIP+":"+serverPORT+"/admin/main");
 		mv.addObject("userid", user.getUsername());
 		

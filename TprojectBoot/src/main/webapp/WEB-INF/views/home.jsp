@@ -48,7 +48,7 @@
 <form name='TransTest' id='tForm' method='get' action='http://localhost:8080/admin/mainbasic'>
 <p><button name='subject' type='submit'>관리자 페이지 이동(basic)</button></p>
 </form>
-<<br>
+<br>
 	<div>
 		<label>* Spring JPA, Hibernate Test</label><br>
 		<input type='button' value='load all user' id='btntest5'>
@@ -61,6 +61,15 @@
 		<input type="text" placeholder="input search id" id="searcheid">&nbsp
 		<input type="button" value="search phonenumber" id="searchemailbtn">&nbsp
 	</div>
+<br>
+<div>
+<label>* FCM Test</label>
+<br>
+<label>- Message:</label>
+<input type="text" placeholder="input message: " id="message">
+<br>
+<input type="button" value="send message button" id="sendbutton">
+</div>
 </body>
 <script type="text/javascript">
 $(function(){
@@ -438,6 +447,30 @@ $(function(){
 						}
 					});
 				}	
+			},
+			error: function(retVal, status, er){
+				alert("error: "+retVal+" status: "+status+" er:"+er);
+			}
+		});
+	});
+	$('#sendbutton').click(function(){
+		var message = $('#message').val();
+		
+		var trans_objeect = 
+		{
+	    		'message' : message
+	    }
+		var trans_json = JSON.stringify(trans_objeect); //json으로 반환//
+		
+		$.ajax({
+			url: '<c:url value="/sendmessage"/>',
+			type: 'POST',
+			dataType: 'json',
+			data: trans_json,
+			contentType: 'application/json',
+			mimeType: 'application/json',
+			success: function(retVal){
+				console.log('fcm message send success...');
 			},
 			error: function(retVal, status, er){
 				alert("error: "+retVal+" status: "+status+" er:"+er);

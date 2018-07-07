@@ -21,5 +21,4 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
 		// TODO Auto-generated method stub
 		registry.addEndpoint("/websockethandler").withSockJS(); //여러가지 End Point설정//
 	}
-
 }
